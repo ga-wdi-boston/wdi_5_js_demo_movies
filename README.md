@@ -149,6 +149,64 @@ rails server
 
 ### Create a Movie
 
+**Add this to the index.html**
+
+```html
+<!-- Create a Movie form -->
+  <div>
+    <input type='text' id='movie-name' placeholder="Enter Movie name"></input><br>
+    <input type='textarea' id='movie-desc' placeholder="Enter Movie description"></input><br>
+    <input type='text' id='movie-length' placeholder="Enter Movie length"></input><br>
+
+    <label for='select-movie-rating'>Movie Rating</label>
+    <select id='movie-rating' name='select-movie-rating'>
+      <option value='G'>G</option>
+      <option value='pg'>PG</option>
+      <option value='pg-13'>PG-13</option>
+      <option value='R'>R</option>      
+      <option value='nc-17'>NC-17</option>      
+    </select><br>
+
+    <button id='create-movie'>Create Movie</button>
+  </div>
+```
+
+**Add this to the movies.js**
+
+```javascript
+  // lets get the form input fields only once.
+  var $movie_name = $('#movie-name');
+  var $movie_desc = $('#movie-name');
+  var $movie_length = $('#movie-length');
+  var $movie_rating = $('#movie-rating');
+
+  $('#create-movie').on('click', function(){
+  
+    var movie_data = {movie: {
+      name: $movie_name.val(),
+      desc: $movie_desc.val(),
+      length: $movie_length.val(),
+      length: $movie_rating.val()
+    }};
+
+    $.ajax({
+      url: movies_url,
+      dataType: 'json',
+      method: 'post',
+      data: movie_data
+    })
+    .done(function(movie){
+      $moviesList.append('<li id="' + movie.id + '"> ' + movie.name + '</li>');
+    })
+    .fail(function(){
+      var errorMsg = 'Error: Creating a movie';
+      alert(errorMsg);
+      console.log(errorMsg);
+    }); // end fail
+  }); // end create movie handler
+ 
+```
+
 ### Update a Movie
 
 
