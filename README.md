@@ -13,10 +13,8 @@
 
 ```
 mkdir movies_crud_frontend
-cd movies_frontend
-touch index.html
-touch movies.js
-touch movies.json
+cd movies_crud_frontend
+subl .
 ```
 
 
@@ -48,8 +46,8 @@ $(document).ready(function(){
   var $moviesList = $('#movies');
 
   // Get the movies from the movies.json file served from
-  // the web server listening on port 5000.
-  var movies_url = 'http://localhost:5000/movies';
+  // the web server listening on port 3000.
+  var movies_url = 'http://localhost:3000/movies';
 
   $('#movies_button').on('click', function(event){
     $.ajax({
@@ -57,6 +55,9 @@ $(document).ready(function(){
       dataType: 'json'
     })
       .done(function(movies){
+        // clear the list of movies
+        $moviesList.html('');
+
         movies.forEach(function(movie){
           $moviesList.append('<li id="' + movie.id + '" >'+ movie.name + '</li>');
         });
