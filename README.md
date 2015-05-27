@@ -105,6 +105,41 @@ rails server
 
 ### Show a specific Movie
 
+**Add to the movies.js**
+
+```
+ // div to show info about a specific movie
+  var $current_movie = $('#current_movie');
+
+  // Add a click handler to show one movie
+  $moviesList.on('click', function(event){
+    // get the list element that was selected
+    var movie_id = event.target.id;
+    // form the URL to get info for a specific movie
+    var movie_url = 'http://localhost:3000/movies/' + movie_id;
+
+    // Send and Ajax GET request
+    $.ajax({
+      url: movie_url,
+      dataType: 'json'
+    })
+    .done(function(movie){
+      var movie_html = '<dl><dt>name</dt><dd>' + movie.name + '</dd>';
+      movie_html += '<dt>rating</dt><dd>' + movie.rating + '</dd>';
+      movie_html += '<dt>description</dt><dd>' + movie.desc + '</dd>';
+      movie_html += '<dt>length</dt><dd>' + movie.length + '</dd></dl>';
+
+      $current_movie.html(movie_html);
+    })
+    .fail(function(data){
+      var errorMsg = 'Error: Accessing the URL' + movie_url;
+      alert(errorMsg);
+      console.log(errorMsg);
+    }); // end of $.ajax
+
+  }); // end of click handler
+```
+
 
 ### Create a Movie
 
