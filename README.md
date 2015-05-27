@@ -104,10 +104,16 @@ rails server
 ```
 
 ### Show a specific Movie
+**Add to the index.html**
+
+```html
+<div id='current_movie'>
+ </div>
+```
 
 **Add to the movies.js**
 
-```
+```javascript
  // div to show info about a specific movie
   var $current_movie = $('#current_movie');
 
